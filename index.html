@@ -5,7 +5,6 @@
   <meta charset="UTF-8">
   <title>Hangman Game</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <script src="https://code.jquery.com/jquery.js"></script>
   <script type="text/javascript" src="assets/javascript/game.js"></script>
 </head>
 
@@ -22,7 +21,6 @@
     <div class="row">
 
       <!-- Left Panel -->
-      <!-- Captain Planet Image -->
         <div class="col-lg-6">
         
             <div class="panel panel-default">
@@ -33,48 +31,41 @@
                 <div class="panel-body">
                     <div class="text-center">
                         <div id="guess-the-image"></div>
-                        <!-- <div class="guess-the-image"><img src="assets/images/slack-logo.SVG" alt="Guess this logo!"class="slack-logo"></div> -->
-                        <!-- <div class="guess-the-image"><img src="assets/images/twitter-logo.JPG" alt="Guess this logo!"class="slack-logo"></div>
-                        <div class="guess-the-image"><img src="assets/images/github-logo.PNG" alt="Guess this logo!"class="slack-logo"></div> -->
                     </div>
                 </div>
             </div>
             
         </div>
-
-
-      <!-- Right Panel (Captain Planet Hero)-->
-      
+      <!-- Right Panel -->
         <div class="col-lg-6">
                 
-            <!-- Controls (Superpower Grow/Shrink)-->
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title text-center">Instructions</h3>
                 </div>
                
                 <div class="panel-body text-center">
-                    <button onclick="slackGameImage()">Game 1</button>
-                    <button onclick="twitterGameImage()">Game 2</button>
-                    <button onclick="githubGameImage()">Game 3</button>
+                    <button onclick="startGame()">Start Game!</button>
                     <br><br><br>
                     
                     <div>Wins:</div>
-                    <div id="number-of-wins">test</div>
+                    <div id="number-of-wins"></div>
                     <br><br><br>
 
                     <div>Current Word:</div>
                     <div>
-                        <span id="letter1"></span><span id="letter2"></span><span id="letter3"></span><span id="letter4"></span><span id="letter5"></span>
+                        <span id="letter1"></span><span id="letter2"></span><span id="letter3"></span>
+                        <span id="letter4"></span><span id="letter5"></span><span id="letter3"></span>
+                        <span id="letter6"></span><span id="letter7"></span><span id="letter8"></span>
                     </div>
                     <br><br><br>
 
                     <div>Number of Guesses Remaining:</div>
-                    <div id="number-of-guesses">test</div>
+                    <div id="number-of-guesses"></div>
                     <br><br><br>
 
                     <div>Letters Already Guessed:</div>
-                    <div id="letters-already-guessed">test</div>
+                    <div id="letters-already-guessed"></div>
                 </div>
             </div>
 

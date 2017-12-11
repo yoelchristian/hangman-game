@@ -1,207 +1,254 @@
 var createImage = document.createElement("img");
-var createSpan = document.createElement("span");
+var guessesRemainingCounter = 10;
+var correctLetterCounter = 0;
+var winCounter = 0;
+var a1 = 0, a2 = 0, a3 = 0, a4 = 0, a5 = 0 , a6 = 0, a7 = 0;
 
-
-
-
+// Function for the first image
 function slackGameImage() {
+    // Selects the div with id "guess-the-image"
     var guessImage = document.getElementById("guess-the-image");
-
+    // Create an attribute for the image element
     createImage.setAttribute("src","assets/images/slack-logo.SVG");
     createImage.setAttribute("width", "300px");
-    // guessImage.innerHTML = "";
+    // Adds the image into the div
     guessImage.appendChild(createImage);
-
+    // Initializes the Instructions panel without affecting the winCounter
+    resetGame();
+    document.getElementById("number-of-guesses").textContent = 10;
     document.getElementById("letter1").textContent = "__ ";
     document.getElementById("letter2").textContent = "__ ";
     document.getElementById("letter3").textContent = "__ ";
     document.getElementById("letter4").textContent = "__ ";
     document.getElementById("letter5").textContent = "__ ";
-    
+    // Captures the keyboard input
+    document.onkeyup = function (event) {
+        var userGuess = event.key;
+        // Conditions if the correct letter is pressed
+        if (event.key === "s") {
+            // Replaces the blank letter with the corresponding correct letter
+            document.getElementById("letter1").textContent = "S ";
+            // Associates a variable to hold a counter in case the same key is pressed multiple times
+            a1 = 1;
+            // Calculates the correct number of letter without duplicates and in any order
+            correctLetterCounter = a1 + a2 + a3 + a4 + a5;
+        } 
+        else if (event.key === "l") {
+            document.getElementById("letter2").textContent = "L ";
+            a2 = 1;
+            correctLetterCounter = a1 + a2 + a3 + a4 + a5;
+        }
+        else if (event.key === "a") {
+            document.getElementById("letter3").textContent = "A ";
+            a3 = 1;
+            correctLetterCounter = a1 + a2 + a3 + a4 + a5;
+        }
+        else if (event.key === "c") {
+            document.getElementById("letter4").textContent = "C ";
+            a4 = 1;
+            correctLetterCounter = a1 + a2 + a3 + a4 + a5;
+        }
+        else if (event.key === "k") {
+            document.getElementById("letter5").textContent = "K ";
+            a5 = 1;
+            correctLetterCounter = a1 + a2 + a3 + a4 + a5;
+        }
+        // Else, if the wrong letter is guessed
+        else {
+            // Creates a span to display the wrong letters guessed
+            var createSpan = document.createElement("span");
+            var lettersAlreadyGuessed = document.createTextNode(userGuess+ " ");
+            createSpan.appendChild(lettersAlreadyGuessed);
+            document.getElementById("letters-already-guessed").appendChild(createSpan);
+            // Calculates the number of guesses remaining and displays it
+            guessesRemainingCounter = guessesRemainingCounter - 1;
+            document.getElementById("number-of-guesses").textContent = guessesRemainingCounter;
+            // If all guesses are used, alert lost and initialize the same stage
+            if (guessesRemainingCounter === 0) {
+                alert("You Lost!");
+                slackGameImage();
+            } 
+            else {
+            }
+        }
+        // If the correct counter reaches the length of the word, alert win and increase the win counter and display it
+        if (correctLetterCounter >= 5) {
+            alert("You Won!");
+            winCounter = winCounter + 1;
+            document.getElementById("number-of-wins").textContent = winCounter;
+            // Proceed to the next stage
+            twitterGameImage();
+        }
+    }
 }
-
-document.onkeyup = function (event) {
-    var userGuess = event.key
-    
-    if (event.key === "s") {
-        document.getElementById("letter1").textContent = "S ";
-    } 
-    else if (event.key === "l") {
-        document.getElementById("letter2").textContent = "L ";
-    }
-    else if (event.key === "a") {
-        document.getElementById("letter3").textContent = "A ";
-    }
-    else if (event.key === "c") {
-        document.getElementById("letter4").textContent = "C ";
-    }
-    else if (event.key === "k") {
-        document.getElementById("letter5").textContent = "K ";
-    }
-    else {
-        
-    }
-}
-
-// document.onkeyup = function (event) {
-//     var userGuess1 = event.key
-
-//     if (userGuess1 === "l") {
-//         var letter2 = "L";
-//         var currentLetter = document.getElementById("letter-guess");
-//         currentLetter.textContent = letter1 + letter2 + letter3 + letter4 + letter5;            
-//     }
-// }
-
-// document.onkeyup = function (event) {
-//     var userGuess2 = event.key
-
-//     if (userGuess === "a") {
-//         var letter3 = "A";
-//         currentLetter.textContent = letter1 + letter2 + letter3 + letter4 + letter5;            
-//     }
-// }
-
-// document.onkeyup = function (event) {
-//     var userGuess3 = event.key
-
-//     if (userGuess === "c") {
-//         var letter4 = "C";
-//         currentLetter.textContent = letter1 + letter2 + letter3 + letter4 + letter5;            
-//     }
-// }
-
-// document.onkeyup = function (event) {
-//     var userGuess4 = event.key
-
-//     if (userGuess === "k") {
-//         var letter5 = "K";
-//         currentLetter.textContent = letter1 + letter2 + letter3 + letter4 + letter5;            
-//     }
-// }
-
 
 function twitterGameImage() {
     var guessImage = document.getElementById("guess-the-image");
-    var currentLetter = document.getElementById("letter-guess");
 
     createImage.setAttribute("src","assets/images/twitter-logo.JPG");
     createImage.setAttribute("width", "300px");
-    // guessImage.innerHTML = "";
     guessImage.appendChild(createImage);
 
-    currentLetter.textContent = "__ __ __ __ __ __ __";
+    resetGame();
+    document.getElementById("number-of-guesses").textContent = 10;
+    document.getElementById("letter1").textContent = "__ ";
+    document.getElementById("letter2").textContent = "__ ";
+    document.getElementById("letter3").textContent = "__ ";
+    document.getElementById("letter4").textContent = "__ ";
+    document.getElementById("letter5").textContent = "__ ";
+    document.getElementById("letter6").textContent = "__ ";
+    document.getElementById("letter7").textContent = "__ ";
+
+    document.onkeyup = function (event) {
+        var userGuess = event.key;
+        
+        if (event.key === "t") {
+            document.getElementById("letter1").textContent = "T ";
+            document.getElementById("letter4").textContent = "T ";
+            document.getElementById("letter5").textContent = "T ";
+            a1 = 3;
+            correctLetterCounter = a1 + a2 + a3 + a4 + a5;
+        } 
+        else if (event.key === "w") {
+            document.getElementById("letter2").textContent = "W ";
+            a2 = 1;
+            correctLetterCounter = a1 + a2 + a3 + a4 + a5;
+        }
+        else if (event.key === "i") {
+            document.getElementById("letter3").textContent = "I ";
+            a3 = 1;
+            correctLetterCounter = a1 + a2 + a3 + a4 + a5;
+        }
+        else if (event.key === "e") {
+            document.getElementById("letter6").textContent = "E ";
+            a4 = 1;
+            correctLetterCounter = a1 + a2 + a3 + a4 + a5;
+        }
+        else if (event.key === "r") {
+            document.getElementById("letter7").textContent = "R ";
+            a5 = 1;
+            correctLetterCounter = a1 + a2 + a3 + a4 + a5;
+        }
+        else {
+            var createSpan = document.createElement("span");
+            var lettersAlreadyGuessed = document.createTextNode(userGuess+ " ");
+            createSpan.appendChild(lettersAlreadyGuessed);
+            document.getElementById("letters-already-guessed").appendChild(createSpan);
+
+            guessesRemainingCounter = guessesRemainingCounter - 1;
+            document.getElementById("number-of-guesses").textContent = guessesRemainingCounter;
+
+            if (guessesRemainingCounter === 0) {
+                alert("You Lost!");
+                twitterGameImage();
+            } 
+            else {
+            }
+        }
+
+        if (correctLetterCounter >= 7) {
+            alert("You Won!");
+            winCounter = winCounter + 1;
+            document.getElementById("number-of-wins").textContent = winCounter;
+            githubGameImage();
+        }
+    }
 }
 
 function githubGameImage() {
     var guessImage = document.getElementById("guess-the-image");
-    var currentLetter = document.getElementById("letter-guess");
 
     createImage.setAttribute("src","assets/images/github-logo.PNG");
     createImage.setAttribute("width", "300px");
-    // guessImage.innerHTML = "";
-    guessImage.appendChild(createImage);
 
-    currentLetter.textContent = "__ __ __ __ __ __";
+    resetGame();
+    document.getElementById("number-of-guesses").textContent = 10;
+    document.getElementById("letter1").textContent = "__ ";
+    document.getElementById("letter2").textContent = "__ ";
+    document.getElementById("letter3").textContent = "__ ";
+    document.getElementById("letter4").textContent = "__ ";
+    document.getElementById("letter5").textContent = "__ ";
+    document.getElementById("letter6").textContent = "__ ";
+
+    document.onkeyup = function (event) {
+        var userGuess = event.key;
+        
+        if (event.key === "g") {
+            document.getElementById("letter1").textContent = "G ";
+            a1 = 1;
+            correctLetterCounter = a1 + a2 + a3 + a4 + a5 + a6;
+        } 
+        else if (event.key === "i") {
+            document.getElementById("letter2").textContent = "I ";
+            a2 = 1;
+            correctLetterCounter = a1 + a2 + a3 + a4 + a5 + a6;
+        }
+        else if (event.key === "t") {
+            document.getElementById("letter3").textContent = "T ";
+            a3 = 1;
+            correctLetterCounter = a1 + a2 + a3 + a4 + a5 + a6;
+        }
+        else if (event.key === "h") {
+            document.getElementById("letter4").textContent = "H ";
+            a4 = 1;
+            correctLetterCounter = a1 + a2 + a3 + a4 + a5 + a6;
+        }
+        else if (event.key === "u") {
+            document.getElementById("letter5").textContent = "U ";
+            a5 = 1;
+            correctLetterCounter = a1 + a2 + a3 + a4 + a5 + a6;
+        }
+        else if (event.key === "b") {
+            document.getElementById("letter6").textContent = "B ";
+            a6 = 1;
+            correctLetterCounter = a1 + a2 + a3 + a4 + a5 + a6;
+        }
+        else {
+            var createSpan = document.createElement("span");
+            var lettersAlreadyGuessed = document.createTextNode(userGuess+ " ");
+            createSpan.appendChild(lettersAlreadyGuessed);
+            document.getElementById("letters-already-guessed").appendChild(createSpan);
+
+            guessesRemainingCounter = guessesRemainingCounter - 1;
+            document.getElementById("number-of-guesses").textContent = guessesRemainingCounter;
+
+            if (guessesRemainingCounter === 0) {
+                alert("You Lost!");
+                githubGameImage();
+            } 
+            else {
+            }
+        }
+
+        if (correctLetterCounter >= 6) {
+            alert(" Congratualtions! You Won!");
+            winCounter = winCounter + 1;
+            document.getElementById("number-of-wins").textContent = winCounter;
+            slackGameImage();
+        }
+    }
+}
+
+function resetGame() {
+    guessesRemainingCounter = 10;
+    correctLetterCounter = 0;
+    a1 = 0, a2 = 0, a3 = 0, a4 = 0, a5 = 0 , a6 = 0, a7 = 0;
+    document.getElementById("number-of-guesses").innerHTML = "";
+    document.getElementById("letters-already-guessed").innerHTML = "";
+    document.getElementById("letter1").textContent = "";
+    document.getElementById("letter2").textContent = "";
+    document.getElementById("letter3").textContent = "";
+    document.getElementById("letter4").textContent = "";
+    document.getElementById("letter5").textContent = "";
+    document.getElementById("letter6").textContent = "";
+    document.getElementById("letter7").textContent = "";
+}
+
+function startGame() {
+    winCounter = 0;
+    document.getElementById("number-of-wins").textContent = "0";
+    slackGameImage();
 }
 
 
-
-
-// $(document).ready(function() {
-    
-//           // Gets Link for Theme Song
-//           var audioElement = document.createElement("audio");
-//           audioElement.setAttribute("src", "Assets/captainplanet24.mp3");
-    
-//           // Theme Button
-//           $(".theme-button").on("click", function() {
-//             audioElement.play();
-//           });
-    
-//           $(".pause-button").on("click", function() {
-//             audioElement.pause();
-//           });
-    
-//           // Size Buttons
-//           $(".normal-button").on("click", function() {
-//             $(".captain-planet").animate({ height: "300px" });
-//           });
-    
-//           $(".grow-button").on("click", function() {
-//             $(".captain-planet").animate({ height: "500px" });
-//           });
-    
-//           $(".shrink-button").on("click", function() {
-//             $(".captain-planet").animate({ height: "100px" });
-//           });
-          
-//           $(".rotate-button").on("click", function() {
-//             $(".captain-planet").toggleClass("flip");
-//           });
-         
-     
-    
-//           // Visibility Buttons
-//           $(".vis-button").on("click", function() {
-//             $(".captain-planet").animate({ opacity: "1" });
-//           });
-    
-//           $(".invis-button").on("click", function() {
-//             $(".captain-planet").animate({ opacity: "0.05" });
-//           });
-    
-//           // Move Buttons
-//           $(".up-button").on("click", function() {
-//             $(".captain-planet").animate({ top: "-=200px" }, "normal");
-//           });
-    
-//           $(".down-button").on("click", function() {
-//             $(".captain-planet").animate({ top: "+=200px" }, "normal");
-//           });
-    
-//           $(".left-button").on("click", function() {
-//             $(".captain-planet").animate({ left: "-=200px" }, "normal");
-//           });
-    
-//           $(".right-button").on("click", function() {
-//             $(".captain-planet").animate({ left: "+=200px" }, "normal");
-//           });
-    
-//           $(".back-button").on("click", function() {
-//             $(".captain-planet").animate({ top: "50px", left: "80px" }, "fast");
-//           });
-    
-//           // Move Buttons (Keyboard Down)
-//           $(document).keyup(function(e) {
-//             switch (e.which) {
-//               case 40:
-//                 $(".captain-planet").animate({ top: "+=200px" }, "normal");
-//             }
-//           });
-    
-//           // Move Buttons (Keyboard Right)
-//           $(document).keyup(function(e) {
-//             switch (e.which) {
-//               case 39:
-//                 $(".captain-planet").animate({ left: "+=200px" }, "normal");
-//             }
-//           });
-    
-//           // Move Buttons (Keyboard Up)
-//           $(document).keyup(function(e) {
-//             switch (e.which) {
-//               case 38:
-//                 $(".captain-planet").animate({ top: "-=200px" }, "normal");
-//             }
-//           });
-    
-//           // Move Buttons (Keyboard Left)
-//           $(document).keyup(function(e) {
-//             switch (e.which) {
-//               case 37:
-//                 $(".captain-planet").animate({ left: "-=200px" }, "normal");
-//             }
-//           });
-//         });
     
